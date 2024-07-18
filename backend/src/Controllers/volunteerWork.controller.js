@@ -1,4 +1,4 @@
-import { isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { VolunteerWork } from "../models/volunteerWork.model.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
@@ -9,13 +9,15 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 //done
 const createVolunteerWork = asyncHandler(async (req, res) => {
   const { title, numberOfHours, description } = req.body;
-
-  const owner = req.user._id;
-  if (!owner) {
+  // console.log(req.user);
+  // console.log(req.user._id);
+  const volunteer = req.user;
+  if (!volunteer) {
     throw new ApiError(400, "Volunteer not found");
   }
 
-  if (owner.role !== "volunteer") {
+  // console.log(owner.role);
+  if (volunteer.role !== "volunteer") {
     throw new ApiError(400, "Only volunteers can upload volunteer work");
   }
   if (!(title || numberOfHours || description)) {
@@ -37,7 +39,7 @@ const createVolunteerWork = asyncHandler(async (req, res) => {
     title,
     numberOfHours,
     description,
-    owner,
+    owner: volunteer._id,
     workFile: workFile.url,
   });
 
@@ -145,6 +147,7 @@ const deleteVolunteerWork = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, null, "Volunteer work deleted successfully."));
 });
 
+//not checked
 const approveVolunteerWork = asyncHandler(async (req, res) => {
   const { volunteerWorkId } = req.params;
 
@@ -156,19 +159,75 @@ const approveVolunteerWork = asyncHandler(async (req, res) => {
     throw new ApiError(400, "You do not have permission to approve the work");
   }
 
-  const post = await VolunteerWork.findByIdAndUpdate(
+  const volunteerWork = await VolunteerWork.findById(volunteerWorkId);
+  if (!volunteerWork) {
+    throw new ApiError(400, "Could not find the volunteer work to be approved");
+  }
+  const updatedVolunteerWork = await VolunteerWork.findByIdAndUpdate(
     volunteerWorkId,
-    {
-      $set: {
-        status: "approved",
-      },
-    },
+    { $set: { status: "approved" } },
     { new: true }
   );
+  const volunteer = await User.findById(volunteerWork.owner);
+  if (!volunteer) {
+    throw new ApiError(404, "Volunteer not found");
+  }
+  volunteer.totalWorkedHours += volunteerWork.numberOfHours;
+  await volunteer.save();
 
   return res
     .status(200)
-    .json(new ApiResponse(201, post, "Work approved successfully"));
+    .json(
+      new ApiResponse(201, updatedVolunteerWork, "Work approved successfully")
+    );
+});
+
+// not checked
+const getVolunteersWithHours = asyncHandler(async (req, res) => {
+  const volunteers = await User.find(
+    { totalNumberOfHours: { $gt: 0 }, role: "volunteer" },
+    "fullName avatar totalNumberOfHours"
+  ).sort({ totalNumberOfHours: -1 });
+  if (!volunteers) {
+    throw new ApiError(404, "No volunteers found");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        volunteers,
+        "Volunteers with hours fetched successfully"
+      )
+    );
+});
+
+// not checked
+const getAllPendingVolunteerWorks = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  if (user.isAdmin != true) {
+    throw new ApiError(403, "You are not authorized to access this route");
+  }
+  const volunteerWorks = await VolunteerWork.find({ status: "pending" });
+  if (!volunteerWorks) {
+    throw new ApiError(404, "No pending volunteer works found");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        volunteerWorks,
+        "Pending volunteer works fetched successfully"
+      )
+    );
 });
 
 export {
@@ -177,4 +236,6 @@ export {
   deleteVolunteerWork,
   getAllVolunteerWorks,
   approveVolunteerWork,
+  getVolunteersWithHours,
+  getAllPendingVolunteerWorks,
 };
