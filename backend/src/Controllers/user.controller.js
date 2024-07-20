@@ -9,7 +9,6 @@ import {
 import { ApiResponse } from "../utils/apiResponse.js";
 import fs from "fs";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 
 // generate access and refresh tokens
 const generateAccessAndRefreshTokens = async (userId) => {

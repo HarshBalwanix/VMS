@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RouterProvider,
   createBrowserRouter,
@@ -14,9 +14,37 @@ import { SignUp } from "./components/SignUp/SignUp";
 import Layout from "./Layout";
 import Event from "./components/Event/Event";
 import EventDetails from "./components/Event/EventDetails";
-
+import { LeaderBoard } from "./components/LeaderBoard/leader-board";
+import { Error } from "./components/Error/Error";
+import Loader from "./components/Loader/Loader";
+import axios from "axios";
 function App() {
   const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    axios.interceptors.request.use(
+      (config) => {
+        setLoading(true);
+        return config;
+      },
+      (error) => {
+        setLoading(false);
+        return Promise.reject(error);
+      }
+    );
+
+    axios.interceptors.response.use(
+      (response) => {
+        setLoading(false);
+        return response;
+      },
+      (error) => {
+        setLoading(false);
+        return Promise.reject(error);
+      }
+    );
+  }, []);
 
   const route = createBrowserRouter(
     createRoutesFromElements(
@@ -26,12 +54,15 @@ function App() {
         <Route path="/register" element={<SignUp />} />
         <Route path="/events" element={<Event />} />
         <Route path="/donate" element={<Donation />} />
+        <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/events/:eventId" element={<EventDetails />} />
+        <Route path="*" element={<Error />} />
       </Route>
     )
   );
   return (
     <>
+      <Loader show={loading} />
       <RouterProvider router={route} />
     </>
   );

@@ -6,7 +6,9 @@ import {
   approveVolunteerWork,
   createVolunteerWork,
   deleteVolunteerWork,
+  getAllPendingVolunteerWorks,
   getAllVolunteerWorks,
+  getVolunteersWithHours,
   updateVolunteerWork,
 } from "../Controllers/volunteerWork.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -21,6 +23,10 @@ router
     createVolunteerWork
   );
 router.route("/admin/").get(getAllVolunteerWorks); // both volunteer and user
+router
+  .route("/admin/approvedVolunteerWorkWithHours")
+  .get(getVolunteersWithHours);
+router.route("/admin/volunteerPendingWorks").get(getAllPendingVolunteerWorks); // both volunteer and user
 router.route("/admin/:volunteerWorkId").patch(approveVolunteerWork); // admin
 router
   .route("/:volunteerWorkId")

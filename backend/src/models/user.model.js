@@ -28,8 +28,8 @@ const userSchema = new Schema(
 
     avatar: {
       type: String,
-      // required: true,
-      // unique: true,
+      required: true,
+      unique: true,
     },
     role: {
       type: String,
@@ -50,6 +50,16 @@ const userSchema = new Schema(
 
     refreshToken: {
       type: String,
+    },
+
+    totalWorkedHours: {
+      type: Number,
+      default: 0,
+    },
+
+    totalDonatedAmount: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

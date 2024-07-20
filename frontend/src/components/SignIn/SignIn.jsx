@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+
 axios.defaults.withCredentials = true;
 
 export function SignIn({ setData }) {
@@ -24,8 +24,8 @@ export function SignIn({ setData }) {
         const data = response.data;
         const userData = data ? data.data.user : null;
         setData(userData);
+        navigate("/donate");
         toast.success("Login successfull");
-        navigate("/events");
         setEmail("");
         setPassword("");
       })

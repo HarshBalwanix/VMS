@@ -1,4 +1,4 @@
-import mongoose, { isValidObjectId } from "mongoose";
+import { isValidObjectId } from "mongoose";
 import { VolunteerWork } from "../models/volunteerWork.model.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
@@ -9,9 +9,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 //done
 const createVolunteerWork = asyncHandler(async (req, res) => {
   const { title, numberOfHours, description } = req.body;
-  // console.log(req.user);
-  // console.log(req.user._id);
+
   const volunteer = req.user;
+
   if (!volunteer) {
     throw new ApiError(400, "Volunteer not found");
   }
@@ -42,6 +42,7 @@ const createVolunteerWork = asyncHandler(async (req, res) => {
     owner: volunteer._id,
     workFile: workFile.url,
   });
+  console.log(volunteerWork.owner);
 
   if (!volunteerWork) {
     throw new ApiError(500, "Volunteer work creation failed");
@@ -147,7 +148,7 @@ const deleteVolunteerWork = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, null, "Volunteer work deleted successfully."));
 });
 
-//not checked
+//done
 const approveVolunteerWork = asyncHandler(async (req, res) => {
   const { volunteerWorkId } = req.params;
 
@@ -160,20 +161,30 @@ const approveVolunteerWork = asyncHandler(async (req, res) => {
   }
 
   const volunteerWork = await VolunteerWork.findById(volunteerWorkId);
+  console.log("Volunteer Work", volunteerWork);
   if (!volunteerWork) {
     throw new ApiError(400, "Could not find the volunteer work to be approved");
   }
+  if (volunteerWork.status === "approved") {
+    throw new ApiError(400, "Volunteer work is already approved");
+  }
+
+  console.log("Volunteer Work owner ", volunteerWork.owner);
+  const volunteer = await User.findById(volunteerWork.owner);
+  console.log("Volunteer", volunteer);
+  if (!volunteer) {
+    throw new ApiError(404, "Volunteer not found");
+  }
+  console.log("Volunteer Work number of hrs ", volunteerWork.numberOfHours);
+
+  volunteer.totalWorkedHours += volunteerWork.numberOfHours;
+  await volunteer.save();
+
   const updatedVolunteerWork = await VolunteerWork.findByIdAndUpdate(
     volunteerWorkId,
     { $set: { status: "approved" } },
     { new: true }
   );
-  const volunteer = await User.findById(volunteerWork.owner);
-  if (!volunteer) {
-    throw new ApiError(404, "Volunteer not found");
-  }
-  volunteer.totalWorkedHours += volunteerWork.numberOfHours;
-  await volunteer.save();
 
   return res
     .status(200)
@@ -185,9 +196,9 @@ const approveVolunteerWork = asyncHandler(async (req, res) => {
 // not checked
 const getVolunteersWithHours = asyncHandler(async (req, res) => {
   const volunteers = await User.find(
-    { totalNumberOfHours: { $gt: 0 }, role: "volunteer" },
-    "fullName avatar totalNumberOfHours"
-  ).sort({ totalNumberOfHours: -1 });
+    { totalWorkedHours: { $gt: 0 }, role: "volunteer" },
+    "fullName avatar totalWorkedHours"
+  ).sort({ totalWorkedHours: -1 });
   if (!volunteers) {
     throw new ApiError(404, "No volunteers found");
   }
@@ -203,7 +214,7 @@ const getVolunteersWithHours = asyncHandler(async (req, res) => {
     );
 });
 
-// not checked
+// done
 const getAllPendingVolunteerWorks = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const user = await User.findById(userId);

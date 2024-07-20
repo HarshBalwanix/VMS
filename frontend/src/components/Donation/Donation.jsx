@@ -1,6 +1,63 @@
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-toastify";
 export default function Donation() {
+  const [amount, setAmount] = useState("");
+
+  const handlePayment = async () => {
+    try {
+      const res = await axios.post("http://localhost:8000/api/v1/donations/", {
+        amount,
+      });
+      // console.log("Before res");
+      console.log(res.data);
+      // console.log("After res");
+      handlePaymentVerify(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePaymentVerify = async (data) => {
+    const options = {
+      key: "rzp_test_cNnJMfX0H3YkDr",
+      amount: data.amount,
+      currency: data.currency,
+      name: "Harsh",
+      description: "Test Mode",
+      order_id: data.id,
+      handler: async (response) => {
+        console.log("response", response);
+        try {
+          // console.log("Before axios");
+          const res = await axios.post(
+            "http://localhost:8000/api/v1/donations/verify",
+            {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }
+          );
+          // console.log("After axios");
+
+          const verifyData = res.data;
+
+          if (verifyData.message) {
+            toast.success(verifyData.message);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      theme: {
+        color: "#5f63b8",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
   return (
     <div className="bg-background text-foreground">
       <main className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -16,19 +73,25 @@ export default function Donation() {
               insecurity.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <button className="flex-1">Donate Now</button>
-              <Link
-                href="#"
-                className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
+              {/* Input field for donation amount */}
+              <input
+                type="number"
+                placeholder="Enter amount"
+                className="flex-1 border px-4 py-2 rounded-md text-black"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              <button
+                onClick={handlePayment}
+                className="flex-1 bg-black text-white"
               >
-                Learn More
-              </Link>
+                Donate Now
+              </button>
             </div>
           </div>
           <div>
             <img
-              src="/placeholder.svg"
+              src="/donation_main.jpg"
               width="600"
               height="400"
               alt="Children eating a meal"
@@ -86,8 +149,8 @@ export default function Donation() {
             <div className="rounded-lg border bg-card p-6 shadow-sm">
               <blockquote className="space-y-2">
                 <p className="text-muted-foreground">
-                  "Food for Good has been a lifeline for my family. The meals\n
-                  they provide have helped us get through some very difficult\n
+                  "Food for Good has been a lifeline for my family. The meals
+                  they provide have helped us get through some very difficult
                   times."
                 </p>
                 <cite className="text-sm font-medium">
@@ -98,8 +161,8 @@ export default function Donation() {
             <div className="rounded-lg border bg-card p-6 shadow-sm">
               <blockquote className="space-y-2">
                 <p className="text-muted-foreground">
-                  "I'm so grateful for the work Food for Good does. Seeing the\n
-                  joy on the children's faces when they receive a hot meal is\n
+                  "I'm so grateful for the work Food for Good does. Seeing the
+                  joy on the children's faces when they receive a hot meal is
                   truly heartwarming."
                 </p>
                 <cite className="text-sm font-medium">
@@ -110,9 +173,9 @@ export default function Donation() {
             <div className="rounded-lg border bg-card p-6 shadow-sm">
               <blockquote className="space-y-2">
                 <p className="text-muted-foreground">
-                  "Food for Good has been a game-changer for our community.\n
-                  The impact they've had on the lives of children in need is\n
-                  truly remarkable."
+                  "Food for Good has been a game-changer for our community. The
+                  impact they've had on the lives of children in need is truly
+                  remarkable."
                 </p>
                 <cite className="text-sm font-medium">
                   - Samantha, Community Leader
@@ -125,21 +188,21 @@ export default function Donation() {
           <h2 className="text-3xl font-bold tracking-tight">Our Work</h2>
           <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <img
-              src="/placeholder.svg"
+              src="/donation_work_1.jpg"
               width="400"
               height="300"
               alt="Children eating a meal"
               className="rounded-lg object-cover"
             />
             <img
-              src="/placeholder.svg"
+              src="/donation_work_2.jpg"
               width="400"
               height="300"
               alt="Volunteers serving food"
               className="rounded-lg object-cover"
             />
             <img
-              src="/placeholder.svg"
+              src="/donation_work_3.jpg"
               width="400"
               height="300"
               alt="Children smiling"

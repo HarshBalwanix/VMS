@@ -1,8 +1,8 @@
 import twilio from "twilio";
 
 export async function sendSMS({ to, message }) {
-  console.log("to", to);
-  console.log("message", message);
+  // console.log("to", to);
+  // console.log("message", message);
   if (!(to || message)) {
     console.error("Missing 'to' number or 'message' content.");
     return;

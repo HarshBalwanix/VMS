@@ -17,10 +17,6 @@ const menuItems = [
     name: "Donate Us",
     to: "/donate",
   },
-  {
-    name: "Provide Feedback",
-    to: "/feedback",
-  },
 ];
 
 export function Navbar() {

@@ -32,10 +32,6 @@ const volunteerWorkSchema = new Schema(
       default: "pending",
       required: true,
     },
-    totalWorkedHours: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );
