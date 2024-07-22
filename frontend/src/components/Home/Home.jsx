@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function Home() {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ function Home() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const { t } = useTranslation();
   const handleVolunteerClick = () => {
     const isConfirmed = window.confirm(
       "Are you sure you want to become a volunteer?"
@@ -90,21 +92,17 @@ function Home() {
             <div className="flex flex-col justify-center space-y-4 text-primary-foreground">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                  Nourishing Futures, One Meal at a Time
+                  {t("home.hero.title")}
                 </h1>
                 <p className="max-w-[600px] text-primary-foreground/80 md:text-xl">
-                  Food for Good is a non-profit organization dedicated to
-                  providing free, nutritious meals to underprivileged children
-                  across the country. Our mission is to ensure no child goes
-                  hungry and to give them the fuel they need to thrive.
+                  {t("home.hero.description")}
                 </p>
               </div>
               <Link
                 to={"/donate"}
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary-foreground px-8 text-sm font-medium text-primary shadow transition-colors hover:bg-primary-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                // prefetch={false}
               >
-                Donate Now
+                {t("home.hero.button")}
               </Link>
             </div>
             <img
@@ -121,27 +119,31 @@ function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Our Impact
+                  {t("home.hero.mid.title")}
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Food for Good has been making a significant impact in the
-                  lives of underprivileged children across the country. Here are
-                  some of our key achievements:
+                  {t("home.hero.mid.description.line1")}
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
               <div className="grid gap-1 text-center">
                 <h3 className="text-3xl font-bold text-primary">100,000+</h3>
-                <p className="text-muted-foreground">Meals Served</p>
+                <p className="text-muted-foreground">
+                  {t("home.hero.mid.description.line2")}
+                </p>
               </div>
               <div className="grid gap-1 text-center">
                 <h3 className="text-3xl font-bold text-primary">5,000+</h3>
-                <p className="text-muted-foreground">Children Fed</p>
+                <p className="text-muted-foreground">
+                  {t("home.hero.mid.description.line3")}
+                </p>
               </div>
               <div className="grid gap-1 text-center">
                 <h3 className="text-3xl font-bold text-primary">95%</h3>
-                <p className="text-muted-foreground">Positive Feedback</p>
+                <p className="text-muted-foreground">
+                  {t("home.hero.mid.description.line4")}
+                </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
@@ -154,13 +156,11 @@ function Home() {
               />
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">Nourishing Young Minds</h3>
+                  <h3 className="text-2xl font-bold">
+                    {t("home.hero.mid.second.line1")}
+                  </h3>
                   <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Our free meal program ensures that underprivileged children
-                    receive the nutrition they need to grow, learn, and thrive.
-                    By providing them with healthy, balanced meals, we're giving
-                    them the fuel to pursue their dreams and reach their full
-                    potential.
+                    {t("home.hero.mid.second.line2")}
                   </p>
                 </div>
               </div>
@@ -174,11 +174,10 @@ function Home() {
           <div className="container px-4 md:px-6 grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                Share Your Feedback
+                {t("home.hero.mid.feedback.title")}
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                We value your feedback and suggestions. Please take a moment to
-                share your thoughts and help us improve our services.
+                {t("home.hero.mid.feedback.line1")}
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
@@ -227,7 +226,7 @@ function Home() {
                   className="bg-primary text-primary-foreground hover:bg-primary/90 py-2 rounded-md"
                   onClick={handleSubmit}
                 >
-                  Submit Feedback
+                  {t("home.hero.mid.feedback.button")}
                 </button>
               </form>
             </div>
@@ -238,13 +237,10 @@ function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Get Involved
+                  {t("home.hero.bottom.title")}
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Volunteering with Food for Good is a rewarding way to make a
-                  difference in the lives of underprivileged children. Join our
-                  team and help us continue to provide free, nutritious meals to
-                  those in need.
+                  {t("home.hero.bottom.description")}
                 </p>
               </div>
             </div>
@@ -259,19 +255,16 @@ function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold">
-                    Join Our Volunteer Team
+                    {t("home.hero.volunteer.title")}
                   </h3>
                   <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Whether you can spare a few hours a week or a few days a
-                    month, your time and effort can make a big difference. From
-                    serving meals to organizing food drives, there are many ways
-                    you can get involved and support our mission.
+                    {t("home.hero.volunteer.description")}
                   </p>
                   <button
                     onClick={handleVolunteerClick}
                     className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                   >
-                    Volunteer Now
+                    {t("home.hero.volunteer.button")}
                   </button>
                 </div>
               </div>
