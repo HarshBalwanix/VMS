@@ -18,6 +18,14 @@ const menuItems = [
     name: "Donate Us",
     to: "/donate",
   },
+  {
+    name: "Dashboard",
+    to: "/dashboard",
+  },
+  {
+    name: "Leaderboard",
+    to: "/leaderboard",
+  },
 ];
 
 export function Navbar() {

@@ -10,7 +10,7 @@ import {
 } from "../ui/table";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { Progress } from "../ui/progress";
-import { Trophy } from "lucide-react"; 
+import { Trophy } from "lucide-react";
 
 export function LeaderBoard() {
   const [volunteers, setVolunteers] = useState([]);
@@ -26,7 +26,7 @@ export function LeaderBoard() {
         }
       })
       .catch((error) => console.error("Error fetching data:", error));
-  }, [volunteers]);
+  }, []);
 
   return (
     <div className="border rounded-lg w-full">

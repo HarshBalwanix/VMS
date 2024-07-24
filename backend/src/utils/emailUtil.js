@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import schedule from "node-schedule";
+// import schedule from "node-schedule";
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   port: process.env.GMAIL_PORT,

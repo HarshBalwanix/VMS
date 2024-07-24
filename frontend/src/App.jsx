@@ -18,7 +18,7 @@ import { LeaderBoard } from "./components/LeaderBoard/leader-board";
 import { Error } from "./components/Error/Error";
 import Loader from "./components/Loader/Loader";
 import axios from "axios";
-import { Dashboard } from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 function App() {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
