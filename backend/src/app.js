@@ -21,6 +21,7 @@ import postRouter from "./routes/post.routes.js";
 import announcementRouter from "./routes/announcement.routes.js";
 import volunteerWorkRouter from "./routes/volunteerWork.routes.js";
 import donationRouter from "./routes/donation.routes.js";
+import dashboardRouter from "./routes/dashboard.routes.js";
 
 // // routes declaration
 
@@ -29,6 +30,7 @@ app.use("/api/v1/events", eventRouter); // tested
 app.use("/api/v1/posts", postRouter); // tested
 app.use("/api/v1/announcements", announcementRouter);
 app.use("/api/v1/donations", donationRouter);
+app.use("/api/v1/dashboard", dashboardRouter);
 app.use("/api/v1/volunteerWorks", volunteerWorkRouter);
 
 export { app };
