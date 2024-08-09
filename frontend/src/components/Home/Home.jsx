@@ -19,7 +19,7 @@ function Home() {
     if (isConfirmed) {
       // User confirmed, make the request
       axios
-        .patch("http://localhost:8000/api/v1/users/becomeVolunteer")
+        .patch("https://vms-six.vercel.app/api/v1/users/becomeVolunteer")
         .then(() => {
           // Handle success
           toast.success("You are now a volunteer!");

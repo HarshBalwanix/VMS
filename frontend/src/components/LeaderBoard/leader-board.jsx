@@ -18,7 +18,7 @@ export function LeaderBoard() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:8000/api/v1/volunteerWorks/admin/approvedVolunteerWorkWithHours"
+        "https://vms-six.vercel.app/api/v1/volunteerWorks/admin/approvedVolunteerWorkWithHours"
       )
       .then((response) => {
         if (response.data.success) {

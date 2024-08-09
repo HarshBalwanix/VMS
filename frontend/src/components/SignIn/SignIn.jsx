@@ -18,7 +18,7 @@ export function SignIn({ setData }) {
       password,
     };
     axios
-      .post("http://localhost:8000/api/v1/users/login", formData)
+      .post("https://vms-six.vercel.app/api/v1/users/login", formData)
       .then((response) => {
         console.log(response.data);
         const data = response.data;

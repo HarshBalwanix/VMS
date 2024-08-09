@@ -35,7 +35,7 @@ export function Navbar() {
 
   const handleLogout = () => {
     axios
-      .post("http://localhost:8000/api/v1/users/logout")
+      .post("https://vms-six.vercel.app/api/v1/users/logout")
       .then(() => {
         toast.success("Logged out successfully");
       })

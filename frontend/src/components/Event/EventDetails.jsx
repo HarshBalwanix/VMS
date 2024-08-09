@@ -12,7 +12,7 @@ function EventDetails() {
 
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/events/getEvents/" + eventId
+          "https://vms-six.vercel.app/api/v1/events/getEvents/" + eventId
         );
         if (response.data.success) {
           setEvent(response.data.data.event);
@@ -29,7 +29,7 @@ function EventDetails() {
   const handleRegister = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/events/getEvents/${eventId}`
+        `https://vms-six.vercel.app/api/v1/events/getEvents/${eventId}`
       );
       if (response.data.success) {
         alert("Registered successfully!");

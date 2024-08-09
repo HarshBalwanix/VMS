@@ -7,7 +7,7 @@ function Event() {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/events/getEvents")
+      .get("https://vms-six.vercel.app/api/v1/events/getEvents")
       .then((response) => {
         if (response.data.success) {
           console.log(response.data.data.events);

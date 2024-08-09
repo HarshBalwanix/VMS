@@ -7,7 +7,7 @@ function PostAdmin() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/posts/admin/pendingPosts")
+      .get("https://vms-six.vercel.app/api/v1/posts/admin/pendingPosts")
       .then((response) => {
         if (response.data.success) {
           console.log(response.data.data.posts);

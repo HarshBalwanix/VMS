@@ -20,7 +20,7 @@ function CreateAnnouncement() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/v1/announcements", announcementData)
+      .post("https://vms-six.vercel.app/api/v1/announcements", announcementData)
       .then((response) => {
         if (response.data.success) {
           toast.success("Announcement created successfully!");

@@ -25,7 +25,7 @@ export function SignUp() {
     };
     console.log("Sending request with payload:", formData);
     axios
-      .post("http://localhost:8000/api/v1/users/register", formData, {
+      .post("https://vms-six.vercel.app/api/v1/users/register", formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Set the Content-Type for file upload
         },

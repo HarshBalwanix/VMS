@@ -7,7 +7,7 @@ function Announcement() {
   //   console.log(announcements);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/announcements/admin")
+      .get("https://vms-six.vercel.app/api/v1/announcements/admin")
       .then((response) => {
         if (response.data.success) {
           console.log(response.data.data.announcements);
