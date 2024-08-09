@@ -73,7 +73,6 @@ function App() {
     };
   }, [setLoading]); // Assuming setLoading is a state setter function
   // Include the ToastContainer component somewhere in your component tree
-  // <ToastContainer />
 
   const route = createBrowserRouter(
     createRoutesFromElements(
