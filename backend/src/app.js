@@ -16,13 +16,13 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
-import userRouter from "./src/routes/user.routes.js";
-import eventRouter from "./src/routes/event.routes.js";
-import postRouter from "./src/routes/post.routes.js";
-import announcementRouter from "./src/routes/announcement.routes.js";
-import volunteerWorkRouter from "./src/routes/volunteerWork.routes.js";
-import donationRouter from "./src/routes/donation.routes.js";
-import dashboardRouter from "./src/routes/dashboard.routes.js";
+import userRouter from "./routes/user.routes.js";
+import eventRouter from "./routes/event.routes.js";
+import postRouter from "./routes/post.routes.js";
+import announcementRouter from "./routes/announcement.routes.js";
+import volunteerWorkRouter from "./routes/volunteerWork.routes.js";
+import donationRouter from "./routes/donation.routes.js";
+import dashboardRouter from "./routes/dashboard.routes.js";
 
 // // routes declaration
 app.get("/", (req, res) => {
