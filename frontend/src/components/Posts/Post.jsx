@@ -7,7 +7,7 @@ function Post() {
 
   useEffect(() => {
     axios
-      .get("https://vms-six.vercel.app/api/v1/posts/volunteer/allPosts")
+      .get("http://localhost:8000/api/v1/posts/volunteer/allPosts")
       .then((response) => {
         if (response.data.success) {
           console.log(response.data.data.posts);

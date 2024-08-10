@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Donation from "./components/Donation/Donation";
 import "./App.css";
-// import { Button } from "./components/ui/button";
+
 import { SignIn } from "./components/SignIn/SignIn";
 import Home from "./components/Home/Home";
 import { SignUp } from "./components/SignUp/SignUp";
@@ -25,7 +25,6 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Define interceptors and store their IDs
     const requestInterceptor = axios.interceptors.request.use(
       (config) => {
         setLoading(true);
@@ -66,13 +65,11 @@ function App() {
       }
     );
 
-    // Cleanup function to eject interceptors when the component unmounts
     return () => {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.response.eject(responseInterceptor);
     };
-  }, [setLoading]); // Assuming setLoading is a state setter function
-  // Include the ToastContainer component somewhere in your component tree
+  }, [setLoading]);
 
   const route = createBrowserRouter(
     createRoutesFromElements(

@@ -19,7 +19,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://vms-six.vercel.app/api/v1/dashboard/admin/getTotalDonatedAmount")
+      .get("http://localhost:8000/api/v1/dashboard/admin/getTotalDonatedAmount")
       .then((response) => {
         const totalAmount = response.data.data.totalAmount;
         setDonatedAmount(totalAmount);
@@ -34,7 +34,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://vms-six.vercel.app/api/v1/dashboard/admin/getTotalVolunteers")
+      .get("http://localhost:8000/api/v1/dashboard/admin/getTotalVolunteers")
       .then((response) => {
         const totalVolunteers = response.data.data.totalVolunteers;
         setTotalVolunteers(totalVolunteers);
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("https://vms-six.vercel.app/api/v1/dashboard/admin/getTotalEvents")
+      .get("http://localhost:8000/api/v1/dashboard/admin/getTotalEvents")
       .then((response) => {
         const totalEvents = response.data.data.totalEvents;
         setTotalEvents(totalEvents);
@@ -62,7 +62,7 @@ export default function Dashboard() {
   useEffect(() => {
     axios
       .get(
-        "https://vms-six.vercel.app/api/v1/dashboard/admin/getTotalHoursVolunteered"
+        "http://localhost:8000/api/v1/dashboard/admin/getTotalHoursVolunteered"
       )
       .then((response) => {
         const totalHours = response.data.data.totalHoursVolunteered;
@@ -77,7 +77,7 @@ export default function Dashboard() {
   useEffect(() => {
     axios
       .get(
-        "https://vms-six.vercel.app/api/v1/dashboard/admin/getlastSixEventsUserCounts"
+        "http://localhost:8000/api/v1/dashboard/admin/getlastSixEventsUserCounts"
       )
       .then((response) => {
         const EventData = response.data.data;
@@ -96,7 +96,7 @@ export default function Dashboard() {
   useEffect(() => {
     axios
       .get(
-        "https://vms-six.vercel.app/api/v1/dashboard/admin/getLastSixEventsUserCounts"
+        "http://localhost:8000/api/v1/dashboard/admin/getLastSixEventsUserCounts"
       )
       .then((response) => {
         const EventData = response.data.data;
@@ -115,7 +115,7 @@ export default function Dashboard() {
   useEffect(() => {
     axios
       .get(
-        "https://vms-six.vercel.app/api/v1/dashboard/admin/getUserHoursForPieChart"
+        "http://localhost:8000/api/v1/dashboard/admin/getUserHoursForPieChart"
       )
       .then((response) => {
         const EventData = response.data.data;

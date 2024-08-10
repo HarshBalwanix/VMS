@@ -38,7 +38,7 @@ function CreateEvent() {
     formData.append("event_image", event_image);
 
     axios
-      .post("https://vms-six.vercel.app/api/v1/events", formData, {
+      .post("http://localhost:8000/api/v1/events", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

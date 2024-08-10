@@ -5,8 +5,8 @@ const app = express();
 
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: "https://vms-ngo.vercel.app",
+    origin: "http://localhost:5173",
+    // origin: "https://vms-ngo.vercel.app",
     credentials: true,
   })
 );
@@ -25,9 +25,9 @@ import donationRouter from "./routes/donation.routes.js";
 import dashboardRouter from "./routes/dashboard.routes.js";
 
 // // routes declaration
-app.get("/", (req, res) => {
-  res.send("Welcome to VMS API");
-});
+// app.get("/", (req, res) => {
+//   res.send("Welcome to VMS API");
+// });
 app.use("/api/v1/users", userRouter); // tested
 app.use("/api/v1/events", eventRouter); // tested
 app.use("/api/v1/posts", postRouter); // tested

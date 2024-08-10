@@ -4,7 +4,7 @@ import { toast } from "react-toastify"; // Ensure react-hot-toast is imported
 const PostCardAdmin = ({ post }) => {
   const handleApprove = (postId) => {
     axios
-      .patch(`https://vms-six.vercel.app/api/v1/posts/admin/${postId}`)
+      .patch(`http://localhost:8000/api/v1/posts/admin/${postId}`)
       .then((response) => {
         if (response.data.success) {
           toast.success("Post approved!");

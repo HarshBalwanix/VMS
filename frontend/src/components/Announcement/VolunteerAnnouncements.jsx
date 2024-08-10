@@ -7,7 +7,7 @@ function VolunteerAnnouncements() {
 
   useEffect(() => {
     axios
-      .get("https://vms-six.vercel.app/api/v1/announcements/volunteer")
+      .get("http://localhost:8000/api/v1/announcements/volunteer")
       .then((response) => {
         if (response.data.success) {
           console.log(response.data.data.announcements);

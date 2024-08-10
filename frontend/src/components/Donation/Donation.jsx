@@ -7,7 +7,7 @@ export default function Donation() {
 
   const handlePayment = async () => {
     try {
-      const res = await axios.post("https://vms-six.vercel.app/api/v1/donations/", {
+      const res = await axios.post("http://localhost:8000/api/v1/donations/", {
         amount,
       });
       // console.log("Before res");
@@ -32,7 +32,7 @@ export default function Donation() {
         try {
           // console.log("Before axios");
           const res = await axios.post(
-            "https://vms-six.vercel.app/api/v1/donations/verify",
+            "http://localhost:8000/api/v1/donations/verify",
             {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
