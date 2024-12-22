@@ -5,9 +5,10 @@ const app = express();
 
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: "https://vms-ngo.vercel.app",
-
+    origin: (origin, callback) => {
+      // Allow requests from any origin
+      callback(null, true);
+    },
     credentials: true,
   })
 );
