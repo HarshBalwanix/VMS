@@ -1,7 +1,7 @@
 import React from "react";
 
 const cardClasses =
-  "bg-card dark:bg-card-foreground text-card-foreground dark:text-card p-4 rounded-lg shadow-md";
+  "bg-card dark:bg-card-foreground text-card-foreground dark:text-card p-4 rounded-lg shadow-md border";
 
 const textClasses = "mt-4";
 const dateClasses = "text-sm  mt-2 text-black ";

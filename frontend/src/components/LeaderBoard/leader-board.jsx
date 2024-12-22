@@ -11,15 +11,14 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { Progress } from "../ui/progress";
 import { Trophy } from "lucide-react";
+import { backendUrl } from "../../lib/constant";
 
 export function LeaderBoard() {
   const [volunteers, setVolunteers] = useState([]);
 
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:8000/api/v1/volunteerWorks/admin/approvedVolunteerWorkWithHours"
-      )
+      .get(`${backendUrl}/volunteerWorks/admin/approvedVolunteerWorkWithHours`)
       .then((response) => {
         if (response.data.success) {
           setVolunteers(response.data.data);

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PostCardAdmin from "./PostCardAdmin";
+import { backendUrl } from "../../lib/constant";
 
 function PostAdmin() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/posts/admin/pendingPosts")
+      .get(`${backendUrl}/posts/admin/pendingPosts`)
       .then((response) => {
         if (response.data.success) {
-          console.log(response.data.data.posts);
           setPosts(response.data.data.posts.reverse());
         } else {
           console.error("Error fetching posts:", response.data.message);
@@ -22,10 +22,13 @@ function PostAdmin() {
   }, []);
 
   return (
-    <div className="space-x-4 space-y-4 h-fit flex flex-row flex-wrap">
-      {posts?.map((post) => {
-        return <PostCardAdmin post={post} key={post._id} />;
-      })}
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Manage Posts</h2>
+      {posts.length > 0 ? (
+        <PostCardAdmin posts={posts} />
+      ) : (
+        <p className="text-gray-500">No posts available to manage.</p>
+      )}
     </div>
   );
 }

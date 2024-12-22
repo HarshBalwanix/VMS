@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../lib/constant";
 
 function CreateEvent() {
   const [eventData, setEventData] = useState({
@@ -38,7 +39,7 @@ function CreateEvent() {
     formData.append("event_image", event_image);
 
     axios
-      .post("http://localhost:8000/api/v1/events", formData, {
+      .post(`${backendUrl}/events`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -65,11 +66,11 @@ function CreateEvent() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-md mx-auto p-4  border border-gray-200 mt-4">
       <h2 className="text-2xl font-semibold mb-4">Create Event</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="title" className="block">
+          <label htmlFor="title" className="block ">
             Title
           </label>
           <input
@@ -78,7 +79,7 @@ function CreateEvent() {
             value={eventData.title}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full rounded-md border border-gray-800 px-2 py-1"
           />
         </div>
         <div>
@@ -90,7 +91,7 @@ function CreateEvent() {
             value={eventData.description}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full rounded-md border border-gray-800 px-2 py-1"
           />
         </div>
         <div>
@@ -103,7 +104,7 @@ function CreateEvent() {
             value={eventData.date}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full rounded-md border border-gray-800 px-2 py-1"
           />
         </div>
         <div>
@@ -116,7 +117,7 @@ function CreateEvent() {
             value={eventData.time}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full rounded-md border border-gray-800 px-2 py-1"
           />
         </div>
         <div>
@@ -129,7 +130,7 @@ function CreateEvent() {
             value={eventData.location}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full rounded-md border border-gray-800 px-2 py-1"
           />
         </div>
         <div>
@@ -146,7 +147,7 @@ function CreateEvent() {
         </div>
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full py-2 px-4 bg-black hover:bg-[#f2b705] text-white rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black transition-all ease-in-out duration-300 hover:text-black"
         >
           Create Event
         </button>

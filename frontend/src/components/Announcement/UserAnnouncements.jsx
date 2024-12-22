@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { AnnouncementCard } from "./AnnouncementCard"; // Assuming AnnouncementCard can be reused
+import { backendUrl } from "../../lib/constant";
 
 function UserAnnouncements() {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/announcements/user")
+      .get(`${backendUrl}/announcements/user`)
       .then((response) => {
         if (response.data.success) {
           console.log(response.data.data.announcements);

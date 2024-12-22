@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { backendUrl } from "../../lib/constant";
 
 function EventDetails() {
   const [event, setEvent] = useState(null);
@@ -12,11 +13,10 @@ function EventDetails() {
 
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/events/getEvents/" + eventId
+          `${backendUrl}/events/getEvents/${eventId}`
         );
         if (response.data.success) {
           setEvent(response.data.data.event);
-          
         }
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -29,64 +29,67 @@ function EventDetails() {
   const handleRegister = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/events/getEvents/${eventId}`
+        `${backendUrl}/events/getEvents/${eventId}`
       );
       if (response.data.success) {
         alert("Registered successfully!");
       }
     } catch (error) {
-      
       alert("Failed to register for the event.");
     }
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "20px auto",
-        padding: "20px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
+    <div className="max-w-2xl mx-auto my-4 p-4 bg-white shadow-lg rounded-lg border border-gray-200">
       {event ? (
-        <div>
-          <h1 style={{ textAlign: "center" }}>{event.title}</h1>
-          <img
-            src={event.event_image}
-            alt={event.title}
-            style={{ width: "50%", height: "auto", borderRadius: "10px" }}
-          />
-          <p>
-            <strong>Location:</strong> {event.location}
-          </p>
-          <p>
-            <strong>Date:</strong> {event.date}
-          </p>
-          <p>
-            <strong>Time:</strong> {event.time}
-          </p>
-          <p>
-            <strong>Description:</strong> {event.description}
-          </p>
+        <div className="space-y-2">
+          <h1 className="text-center text-3xl font-bold text-gray-800">
+            {event.title}
+          </h1>
+
+          {/* Event Image */}
+          <div className="flex justify-center">
+            <img
+              src={event.event_image}
+              alt={event.title}
+              className="w-2/3 md:w-1/2 rounded-lg shadow-md"
+            />
+          </div>
+
+          {/* Event Details */}
+          <div className="space-y-2">
+            <p className="text-lg">
+              <strong className="font-medium text-gray-700">Location:</strong>{" "}
+              {event.location}
+            </p>
+            <p className="text-lg">
+              <strong className="font-medium text-gray-700">Date:</strong>{" "}
+              {event.date}
+            </p>
+            <p className="text-lg">
+              <strong className="font-medium text-gray-700">Time:</strong>{" "}
+              {event.time}
+            </p>
+            <p className="text-lg">
+              <strong className="font-medium text-gray-700">
+                Description:
+              </strong>{" "}
+              {event.description}
+            </p>
+          </div>
+
+          {/* Register Button */}
           <button
             onClick={handleRegister}
-            style={{
-              display: "block",
-              width: "100%",
-              padding: "10px",
-              backgroundColor: "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
+            className="w-full py-2 px-4 bg-black hover:bg-[#f2b705] text-white rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black transition-all ease-in-out duration-300 hover:text-black"
           >
-            Register
+            Register Now
           </button>
         </div>
       ) : (
-        <p>Loading event details...</p>
+        <p className="text-center text-lg text-gray-600">
+          Loading event details...
+        </p>
       )}
     </div>
   );

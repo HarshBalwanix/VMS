@@ -7,6 +7,7 @@ import {
   BarchartChart,
   PiechartChart,
 } from "./ChartComponents";
+import { backendUrl } from "../../lib/constant";
 
 export default function Dashboard() {
   const [donatedAmount, setDonatedAmount] = useState(0);
@@ -19,7 +20,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/dashboard/admin/getTotalDonatedAmount")
+      .get(`${backendUrl}/dashboard/admin/getTotalDonatedAmount`)
       .then((response) => {
         const totalAmount = response.data.data.totalAmount;
         setDonatedAmount(totalAmount);
@@ -34,7 +35,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/dashboard/admin/getTotalVolunteers")
+      .get(`${backendUrl}/dashboard/admin/getTotalVolunteers`)
       .then((response) => {
         const totalVolunteers = response.data.data.totalVolunteers;
         setTotalVolunteers(totalVolunteers);
@@ -49,7 +50,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/dashboard/admin/getTotalEvents")
+      .get(`${backendUrl}/dashboard/admin/getTotalEvents`)
       .then((response) => {
         const totalEvents = response.data.data.totalEvents;
         setTotalEvents(totalEvents);
@@ -61,9 +62,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:8000/api/v1/dashboard/admin/getTotalHoursVolunteered"
-      )
+      .get(`${backendUrl}/dashboard/admin/getTotalHoursVolunteered`)
       .then((response) => {
         const totalHours = response.data.data.totalHoursVolunteered;
         setTotalHours(totalHours);
@@ -76,9 +75,7 @@ export default function Dashboard() {
   //line chart
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:8000/api/v1/dashboard/admin/getlastSixEventsUserCounts"
-      )
+      .get(`${backendUrl}/dashboard/admin/getlastSixEventsUserCounts`)
       .then((response) => {
         const EventData = response.data.data;
 
@@ -95,9 +92,7 @@ export default function Dashboard() {
   //bar chart
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:8000/api/v1/dashboard/admin/getLastSixEventsUserCounts"
-      )
+      .get(`${backendUrl}/dashboard/admin/getLastSixEventsUserCounts`)
       .then((response) => {
         const EventData = response.data.data;
 
@@ -114,9 +109,7 @@ export default function Dashboard() {
   // pie chart
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:8000/api/v1/dashboard/admin/getUserHoursForPieChart"
-      )
+      .get(`${backendUrl}/dashboard/admin/getUserHoursForPieChart`)
       .then((response) => {
         const EventData = response.data.data;
         setEventPieData(EventData);

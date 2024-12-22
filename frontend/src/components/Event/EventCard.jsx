@@ -17,14 +17,14 @@ export function EventCard({ event }) {
           </h1>
           <p className="mt-3 text-sm text-gray-600">{event.description}</p>
           <div className="mt-4">
-            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-              {event.date}
+            <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-600">
+              📅 {event.date}
             </span>
-            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-              {event.time}
+            <span className="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
+              ⏰ {event.time}
             </span>
-            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-              {event.location}
+            <span className="inline-block rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-600">
+              📍 {event.location}
             </span>
           </div>
         </div>

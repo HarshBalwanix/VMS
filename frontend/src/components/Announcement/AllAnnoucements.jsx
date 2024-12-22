@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { AnnouncementCard } from "./AnnouncementCard";
+import { backendUrl } from "../../lib/constant";
 
 function Announcement() {
   const [announcements, setAnnouncements] = useState([]);
-  //   console.log(announcements);
+
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/announcements/admin")
+      .get(`${backendUrl}/announcements/admin`)
       .then((response) => {
         if (response.data.success) {
-          console.log(response.data.data.announcements);
           setAnnouncements(response.data.data.announcements.reverse());
         } else {
           console.error("Error fetching announcements:", response.data.message);
@@ -22,19 +23,26 @@ function Announcement() {
   }, []);
 
   return (
-    <div className="space-x-4 space-y-3 h-fit flex flex-row flex-wrap ">
-      <div className="mb-4">
-        <h2 className="text-2xl font-semibold">Announcements</h2>
+    <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+      <div className="mb-4 flex flex-col gap-2">
+        <Link
+          to="/announcements/create"
+          className="bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] hover:text-black transition duration-300 self-start"
+        >
+          Create Announcement
+        </Link>
+        <h2 className="text-3xl font-bold text-gray-800 border-b-2 border-gray-300 pb-2">
+          Announcements
+        </h2>
       </div>
-
-      {announcements?.map((announcement) => {
-        return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {announcements?.map((announcement) => (
           <AnnouncementCard
             announcement={announcement}
             key={announcement._id}
           />
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }

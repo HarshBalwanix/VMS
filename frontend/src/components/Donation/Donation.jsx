@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../lib/constant";
 export default function Donation() {
   const [amount, setAmount] = useState("");
 
   const handlePayment = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/donations/", {
+      const res = await axios.post(`${backendUrl}/donations/`, {
         amount,
       });
       // console.log("Before res");
@@ -31,14 +32,11 @@ export default function Donation() {
         console.log("response", response);
         try {
           // console.log("Before axios");
-          const res = await axios.post(
-            "http://localhost:8000/api/v1/donations/verify",
-            {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            }
-          );
+          const res = await axios.post(`${backendUrl}/donations/verify`, {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          });
           // console.log("After axios");
 
           const verifyData = res.data;

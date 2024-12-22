@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../lib/constant";
 
 axios.defaults.withCredentials = true;
 
@@ -18,7 +19,7 @@ export function SignIn({ setData }) {
       password,
     };
     axios
-      .post("http://localhost:8000/api/v1/users/login", formData)
+      .post(`${backendUrl}/users/login`, formData)
       .then((response) => {
         console.log(response.data);
         const data = response.data;
@@ -28,6 +29,7 @@ export function SignIn({ setData }) {
         toast.success("Login successfull");
         setEmail("");
         setPassword("");
+        window.location.reload(0);
       })
       .catch((error) => {
         // setError(error.response.data.message);
@@ -58,7 +60,7 @@ export function SignIn({ setData }) {
         <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
-            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
+            src="https://media.istockphoto.com/id/524903696/photo/poor-indian-children-asking-for-food-india.webp?a=1&b=1&s=612x612&w=0&k=20&c=DqMSvVaXQxISjdvfNizw6F9ZkaCBMy42Yk6agRcJUE8="
             alt=""
           />
         </div>

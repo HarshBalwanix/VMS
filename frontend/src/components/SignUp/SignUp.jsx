@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../lib/constant";
 
 export function SignUp() {
   const [fullName, setfullName] = useState("");
@@ -25,7 +26,7 @@ export function SignUp() {
     };
     console.log("Sending request with payload:", formData);
     axios
-      .post("http://localhost:8000/api/v1/users/register", formData, {
+      .post(`${backendUrl}/users/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data", // Set the Content-Type for file upload
         },
@@ -243,7 +244,7 @@ export function SignUp() {
         <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
-            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
+            src="https://plus.unsplash.com/premium_photo-1682092585257-58d1c813d9b4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TkdPfGVufDB8fDB8fHww"
             alt=""
           />
         </div>

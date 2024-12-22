@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { backendUrl } from "../../lib/constant";
 
 const menuItems = [
   {
@@ -23,6 +24,14 @@ const menuItems = [
     to: "/dashboard",
   },
   {
+    name: "Announcements",
+    to: "/announcements",
+  },
+  {
+    name: "Posts",
+    to: "/posts",
+  },
+  {
     name: "Leaderboard",
     to: "/leaderboard",
   },
@@ -32,12 +41,13 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [language, setLanguage] = useState("en");
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogout = () => {
     axios
-      .post("http://localhost:8000/api/v1/users/logout")
+      .post(`${backendUrl}/users/logout`)
       .then(() => {
         toast.success("Logged out successfully");
+        setIsLoggedIn(true);
       })
       .catch((error) => {
         console.error("Logout error:", error);
@@ -84,7 +94,13 @@ export function Navbar() {
         <div className="inline-flex items-center space-x-2">
           <span>
             <Link to="/">
-              <img src={"s"} alt="Logo" className="h-[4rem]" />
+              <img
+                src="/logo.png"
+                width="80"
+                height="66"
+                alt="Logo"
+                className="h-[4rem]"
+              />
             </Link>
           </span>
         </div>
@@ -120,15 +136,26 @@ export function Navbar() {
           </ul>
         </div>
         <div className="hidden lg:block">
-          <Link to="/login">
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black transition-all ease-in-out duration-300 hover:text-black"
-            >
-              Log Out
-            </button>
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/login">
+              <button
+                type="button"
+                className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black transition-all ease-in-out duration-300 hover:text-black"
+              >
+                Log In
+              </button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black transition-all ease-in-out duration-300 hover:text-black"
+              >
+                Log Out
+              </button>
+            </Link>
+          )}
         </div>
         <div className="lg:hidden">
           <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
@@ -180,15 +207,26 @@ export function Navbar() {
                     </div>
                   </nav>
                 </div>
-                <Link to="/login">
-                  <button
-                    type="button"
-                    className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:text-black transition-all ease-in-out duration-300"
-                    onClick={handleLogout}
-                  >
-                    Log Out
-                  </button>
-                </Link>
+                {isLoggedIn ? (
+                  <Link to="/login">
+                    <button
+                      type="button"
+                      className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:text-black transition-all ease-in-out duration-300"
+                      onClick={handleLogout}
+                    >
+                      Log Out
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to="/login">
+                    <button
+                      type="button"
+                      className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#f2b705] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black hover:text-black transition-all ease-in-out duration-300"
+                    >
+                      Log In
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

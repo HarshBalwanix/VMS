@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { backendUrl } from "../../lib/constant";
 
 function Home() {
   const [name, setName] = useState("");
@@ -19,7 +20,7 @@ function Home() {
     if (isConfirmed) {
       // User confirmed, make the request
       axios
-        .patch("http://localhost:8000/api/v1/users/becomeVolunteer")
+        .patch(`${backendUrl}/users/becomeVolunteer`)
         .then(() => {
           // Handle success
           toast.success("You are now a volunteer!");
