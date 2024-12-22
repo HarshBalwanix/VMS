@@ -1,7 +1,7 @@
-import { app } from "./app.js";
-import connectDB from "./db/index.js";
+import { app } from "./src/app.js";
+import connectDB from "./src/db/index.js";
 import dotenv from "dotenv";
-import { sendSMS } from "./utils/smsUtil.js";
+import { sendSMS } from "./src/utils/smsUtil.js";
 dotenv.config({ path: "./.env" });
 
 connectDB()
